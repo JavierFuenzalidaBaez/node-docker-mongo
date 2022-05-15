@@ -1,0 +1,21 @@
+version: "3"
+services:
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app_base
+  app_base:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: app_base
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
